@@ -1,0 +1,408 @@
+/* responsive.css */
+/* ===== MOBILE FIRST RESPONSIVE DESIGN ===== */
+
+/* Large Desktop */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1320px;
+    }
+    
+    .featured-grid, .movies-grid, .actors-grid, .recommendations-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+/* Desktop */
+@media (max-width: 1200px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .nav-search {
+        flex: 0 1 400px;
+    }
+    
+    .footer-content {
+        grid-template-columns: 2fr 1fr 1fr;
+    }
+    
+    .footer-content .footer-section:last-child {
+        grid-column: 1 / -1;
+        margin-top: 2rem;
+    }
+}
+
+/* Tablet Landscape */
+@media (max-width: 1024px) {
+    .section {
+        padding: 4rem 0;
+    }
+    
+    .hero {
+        height: 70vh;
+        min-height: 500px;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .nav-search {
+        flex: 0 1 350px;
+        margin: 0 1.5rem;
+    }
+    
+    .nav-menu {
+        gap: 1.5rem;
+    }
+    
+    .featured-grid, .movies-grid, .actors-grid, .recommendations-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .genres-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+}
+
+/* Tablet Portrait */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .nav-container {
+        padding: 0 15px;
+    }
+    
+    /* Mobile Navigation */
+    .hamburger {
+        display: flex;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: var(--surface-darker);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 2rem 0;
+        gap: 2rem;
+        transition: var(--transition);
+        z-index: 999;
+    }
+    
+    .nav-menu.active {
+        left: 0;
+    }
+    
+    .nav-search {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        margin: 1rem 15px;
+        flex: none;
+        display: none;
+    }
+    
+    .nav-search.active {
+        display: block;
+    }
+    
+    .nav-actions {
+        gap: 0.5rem;
+    }
+    
+    .btn-signin {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Hero Section */
+    .hero {
+        height: 60vh;
+        min-height: 400px;
+        margin-top: 70px;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .hero-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn-primary, .btn-secondary {
+        width: 200px;
+        justify-content: center;
+    }
+    
+    /* Sections */
+    .section {
+        padding: 3rem 0;
+    }
+    
+    .section-title {
+        font-size: 1.75rem;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .section-controls {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Filters & Controls */
+    .recommendation-filters, .search-controls, .personalized-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+    
+    .filter-group, .control-group, .sort-controls {
+        width: 100%;
+    }
+    
+    .filter-select, .control-select, .sort-select {
+        min-width: auto;
+        width: 100%;
+    }
+    
+    .search-box input {
+        min-width: auto;
+        width: 100%;
+    }
+    
+    /* Grid Layouts */
+    .featured-grid, .movies-grid, .actors-grid, .recommendations-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+    
+    .genres-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+    
+    /* Movie Cards */
+    .movie-poster {
+        height: 300px;
+    }
+    
+    .movie-info {
+        padding: 1rem;
+    }
+    
+    .movie-title {
+        font-size: 1.1rem;
+    }
+    
+    .movie-meta {
+        font-size: 0.8rem;
+    }
+    
+    /* Footer */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .footer-legal {
+        justify-content: center;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 10px;
+    }
+    
+    .nav-container {
+        padding: 0 10px;
+    }
+    
+    .nav-logo span {
+        display: none;
+    }
+    
+    .hero {
+        height: 50vh;
+        min-height: 350px;
+    }
+    
+    .hero-title {
+        font-size: 1.75rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .featured-grid, .movies-grid, .actors-grid, .recommendations-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+    
+    .genres-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    }
+    
+    .movie-poster {
+        height: 250px;
+    }
+    
+    .movie-overlay {
+        padding: 1.5rem 1rem 1rem;
+    }
+    
+    .movie-actions {
+        flex-direction: column;
+    }
+    
+    .pagination {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .page-numbers {
+        order: -1;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .modal-content {
+        margin: 1rem auto;
+        width: 95%;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 360px) {
+    .featured-grid, .movies-grid, .actors-grid, .recommendations-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .movie-card, .actor-card {
+        max-width: 280px;
+        margin: 0 auto;
+    }
+    
+    .genres-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ===== TOUCH DEVICE OPTIMIZATIONS ===== */
+@media (hover: none) and (pointer: coarse) {
+    .movie-card:hover, .actor-card:hover, .genre-card:hover {
+        transform: none;
+    }
+    
+    .btn-primary:hover, .btn-secondary:hover, .btn-signin:hover {
+        transform: none;
+    }
+    
+    .nav-link:hover {
+        color: var(--text-secondary);
+    }
+    
+    .view-btn:hover, .control-btn:hover, .pagination-btn:hover {
+        background: var(--surface-dark);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .view-btn.active:hover, .control-btn.active:hover {
+        background: var(--accent-red);
+        border-color: var(--accent-red);
+    }
+}
+
+/* ===== HIGH CONTRAST MODE SUPPORT ===== */
+@media (prefers-contrast: high) {
+    :root {
+        --primary-bg: #000000;
+        --surface-dark: #222222;
+        --text-primary: #FFFFFF;
+        --text-secondary: #EEEEEE;
+        --accent-red: #FF0000;
+    }
+    
+    .movie-card, .actor-card, .genre-card {
+        border: 2px solid var(--text-primary);
+    }
+}
+
+/* ===== REDUCED MOTION SUPPORT ===== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .movie-card:hover, .actor-card:hover, .genre-card:hover {
+        transform: none;
+    }
+    
+    .btn-primary:hover, .btn-secondary:hover {
+        transform: none;
+    }
+}
+
+/* ===== DARK MODE ENFORCEMENT ===== */
+@media (prefers-color-scheme: light) {
+    /* Force dark mode regardless of system preference */
+    body {
+        background-color: var(--primary-bg);
+        color: var(--text-primary);
+    }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+    .header, .footer, .hero, .section-controls, .search-controls, .movie-actions {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .section {
+        padding: 1rem 0;
+        break-inside: avoid;
+    }
+    
+    .movies-grid, .actors-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}

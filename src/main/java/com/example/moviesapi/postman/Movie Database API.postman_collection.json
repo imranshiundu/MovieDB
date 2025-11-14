@@ -1,0 +1,592 @@
+{
+	"info": {
+		"_postman_id": "df0adaa5-032b-46c3-bb52-53a8fb90b044",
+		"name": "Movie Database API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41833110"
+	},
+	"item": [
+		{
+			"name": "Movie API",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/movies",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "movie by name",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/movies/search?title=matrix",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"movies",
+						"search"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "matrix"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "movie by number",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/movies/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"movies",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recommendation by title",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/recommendations/moods",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"recommendations",
+						"moods"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "trending recommendation by number",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/recommendations/trending?limit=5",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"recommendations",
+						"trending"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trending Recommended  Action movies",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/recommendations/by-mood/action?limit=5",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"recommendations",
+						"by-mood",
+						"action"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cached Movies",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/movies/cached",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"movies",
+						"cached"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Cache Info",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/cache/info",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"cache",
+						"info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get cache stats",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/cache/stats",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"cache",
+						"stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clear cache",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/cache/clear",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"cache",
+						"clear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Matrics Health",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/metrics/health",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"metrics",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get metrics Stats",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/metrics/stats",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"metrics",
+						"stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Matrics Health",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/metrics/health",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"metrics",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Actors",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Diagnostic-Request",
+						"value": "true"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/api/actors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"actors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Movie By Name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/movies/search?title=matrix",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"movies",
+						"search"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "matrix"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adding Movies",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Diagnostic-Request",
+						"value": "true"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Oppenheimer\",\n  \"releaseYear\": 2023,\n  \"duration\": 180,\n  \"genreIds\": [1],     // Replace with actual genre ID from step 1\n  \"actorIds\": [1]      // Replace with actual actor ID from step 2\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adding Genres",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Comic\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/genres",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"genres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Movie API",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adding Actors",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Specifies the media type of the request body"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": "Indicates the expected response format"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Postman",
+						"description": "Identifies the client making the request"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br",
+						"description": "Indicates supported compression algorithms"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"description": "Controls whether the network connection stays open"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache",
+						"description": "Directives for caching mechanisms"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Florence Pugh\",\n  \"birthDate\": \"1996-01-03\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/actors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"actors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editing Actor's Details",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Florence Rose Pugh\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/actors/16",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"actors",
+						"16"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

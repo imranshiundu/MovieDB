@@ -1,0 +1,63 @@
+movies-api/
+│
+├── src/main/java/com/example/moviesapi/
+│   ├── MoviesApiApplication.java              # Main Spring Boot application
+│   │
+│   ├── model/                                 # JPA Entities
+│   │   ├── Genre.java                         # Genre entity (id, name)
+│   │   ├── Actor.java                         # Actor entity (id, name, birthDate)
+│   │   └── Movie.java                         # Movie entity (id, title, releaseYear, duration)
+│   │
+│   ├── repository/                            # Spring Data JPA Repositories
+│   │   ├── GenreRepository.java
+│   │   ├── ActorRepository.java
+│   │   └── MovieRepository.java
+│   │
+│   ├── service/                               # Business Logic Layer
+│   │   ├── GenreService.java
+│   │   ├── ActorService.java
+│   │   ├── MovieService.java
+│   │   └── MovieRecommendationService.java    # AI Recommendation Engine
+│   │
+│   ├── controller/                            # REST API Controllers
+│   │   ├── GenreController.java
+│   │   ├── ActorController.java
+│   │   ├── MovieController.java
+│   │   ├── RecommendationController.java      # Recommendation Endpoints
+│   │   ├── HomeController.java                # Root endpoint controller
+│   │   └── MetricsController.java             # API metrics and health
+│   │
+│   ├── exception/                             # Custom Exception Handling
+│   │   ├── ResourceNotFoundException.java
+│   │   ├── InvalidRequestException.java
+│   │   └── GlobalExceptionHandler.java
+│   │
+│   ├── dto/                                   # Data Transfer Objects
+│   │   ├── MovieRequest.java                  # Request DTOs for validation
+│   │   ├── ActorRequest.java
+│   │   ├── GenreRequest.java
+│   │   ├── MovieResponse.java                 # Response DTOs for clean API
+│   │   ├── ActorResponse.java
+│   │   └── GenreResponse.java
+│   │
+│   ├── config/                                # Configuration classes
+│   │   ├── DatabaseConfig.java                # JPA Configuration
+│   │   └── WebConfig.java                     # Web MVC Configuration
+│   │
+│   ├── metrics/                               # Metrics and Monitoring
+│   │   ├── ApiMetricsService.java             # API usage statistics
+│   │   ├── MetricsController.java             # Metrics endpoints
+│   │   └── MetricsInterceptor.java            # Request interceptor
+│   │
+│   └── cache/                                 # Caching System
+│       ├── SimpleCacheService.java            # In-memory caching
+│       └── CacheController.java               # Cache management endpoints
+│
+├── src/main/resources/
+│   ├── application.properties                 # Application configuration
+│   └── data.sql                              # Sample data (25 movies, 20 actors, 9 genres)
+│
+├── pom.xml                                   # Maven dependencies
+├── README.md                                 # This file
+├── test-all-features.sh                      # Complete testing script
+└── test-recommendations.sh                   # Recommendation testing script

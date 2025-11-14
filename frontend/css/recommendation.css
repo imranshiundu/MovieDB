@@ -1,0 +1,416 @@
+/* recommendations.css */
+.recommendations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.recommendation-card {
+    background: var(--surface-dark);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    cursor: pointer;
+}
+
+.recommendation-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.recommendation-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--accent-red);
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    z-index: 2;
+    box-shadow: var(--shadow-md);
+}
+
+.recommendation-card .movie-poster {
+    height: 350px;
+}
+
+.recommendation-score {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--text-primary);
+    padding: 0.5rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    z-index: 2;
+}
+
+.recommendation-score i {
+    color: var(--accent-red);
+}
+
+.recommendation-info {
+    padding: 1.5rem;
+}
+
+.recommendation-info .movie-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+}
+
+.recommendation-info .movie-meta {
+    margin-bottom: 1rem;
+}
+
+.recommendation-info .genre-tags {
+    margin-bottom: 1rem;
+}
+
+.movie-description {
+    color: var(--text-secondary);
+    line-height: 1.5;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.recommendation-reason {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.recommendation-reason i {
+    color: var(--accent-yellow);
+    flex-shrink: 0;
+}
+
+.recommendation-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.recommendation-actions .btn-watchlist,
+.recommendation-actions .btn-info {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.recommendation-actions .btn-watchlist {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.recommendation-actions .btn-watchlist:hover {
+    background: var(--accent-red);
+}
+
+.recommendation-actions .btn-watchlist.in-watchlist {
+    background: var(--accent-red);
+    color: var(--text-primary);
+}
+
+.recommendation-actions .btn-info {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: var(--text-primary);
+}
+
+.recommendation-actions .btn-info:hover {
+    border-color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Recommendation Loading States */
+.recommendation-loading {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-muted);
+}
+
+.loading-spinner-large {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 2rem;
+}
+
+.loading-spinner-large .spinner-ring {
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-width: 4px;
+}
+
+.loading-spinner-large i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+    color: var(--accent-red);
+}
+
+.recommendation-loading h3 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.recommendation-loading p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.recommendation-error {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-muted);
+}
+
+.recommendation-error i {
+    margin-bottom: 1.5rem;
+    opacity: 0.7;
+}
+
+.recommendation-error h3 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.recommendation-error p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+.error-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.no-recommendations {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-muted);
+    grid-column: 1 / -1;
+}
+
+.no-recommendations i {
+    margin-bottom: 1.5rem;
+    opacity: 0.5;
+}
+
+.no-recommendations h3 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.no-recommendations p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+/* Recommendation Stats */
+.recommendation-stats {
+    margin-bottom: 2rem;
+}
+
+.recommendation-stats .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.recommendation-stats .stat {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.recommendation-stats .stat:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.recommendation-stats .stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.recommendation-stats .stat-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* Animation */
+.recommendation-card.animate-in {
+    animation: slideUpFade 0.6s ease-out;
+}
+
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Quick Mood Buttons */
+.mood-quick-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.mood-quick-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid transparent;
+    color: var(--text-secondary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.mood-quick-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+}
+
+.mood-quick-btn.active {
+    background: var(--accent-red);
+    color: var(--text-primary);
+    border-color: var(--accent-red);
+}
+
+/* Personalized Controls */
+.personalized-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.control-group label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.control-select {
+    background: var(--surface-dark);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    padding: 0.75rem 1rem;
+    transition: var(--transition);
+}
+
+.control-select:focus {
+    outline: none;
+    border-color: var(--accent-red);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .recommendations-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .recommendation-card .movie-poster {
+        height: 300px;
+    }
+    
+    .recommendation-info {
+        padding: 1rem;
+    }
+    
+    .recommendation-info .movie-title {
+        font-size: 1.1rem;
+    }
+    
+    .personalized-controls {
+        grid-template-columns: 1fr;
+    }
+    
+    .mood-quick-buttons {
+        justify-content: center;
+    }
+    
+    .error-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .error-actions .btn-primary,
+    .error-actions .btn-secondary {
+        width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .recommendations-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .recommendation-stats .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

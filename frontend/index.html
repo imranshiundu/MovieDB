@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieDB - The Ultimate Movie Database</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/actors.css">
+    <link rel="stylesheet" href="css/movies.css">
+    <link rel="stylesheet" href="css/genres.css">
+    <link rel="stylesheet" href="css/recommendations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="#" class="nav-logo">
+                    <i class="fas fa-film"></i>
+                    <span>MovieDB</span>
+                </a>
+                
+                <div class="nav-search">
+                    <form class="search-form">
+                        <input type="text" id="globalSearch" placeholder="Search for movies, actors, directors...">
+                        <button type="submit" class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#featured" class="nav-link">Featured</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#movies" class="nav-link">Movies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#actors" class="nav-link">Actors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#genres" class="nav-link">Genres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#watchlist" class="nav-link">
+                            <i class="fas fa-bookmark"></i>
+                            <span>Watchlist</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="nav-actions">
+                    <button class="btn-signin">Sign In</button>
+                    <div class="hamburger">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Discover Your Next Favorite Movie</h1>
+                <p class="hero-subtitle">Explore thousands of movies, read reviews, and get personalized recommendations</p>
+                <div class="hero-actions">
+                    <button class="btn-primary">Explore Movies</button>
+                    <button class="btn-secondary">Join Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Featured Recommendations Section -->
+        <section id="featured" class="section featured-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Featured Recommendations</h2>
+                    <div class="section-controls">
+                        <button class="control-btn active" data-filter="trending">Trending</button>
+                        <button class="control-btn" data-filter="popular">Popular</button>
+                        <button class="control-btn" data-filter="new">New Releases</button>
+                    </div>
+                </div>
+                
+                <div class="recommendation-filters">
+                    <div class="filter-group">
+                        <label for="moodFilter">Mood</label>
+                        <select id="moodFilter" class="filter-select">
+                            <option value="">All Moods</option>
+                            <option value="action">Action</option>
+                            <option value="comedy">Comedy</option>
+                            <option value="drama">Drama</option>
+                            <option value="sci-fi">Sci-Fi</option>
+                            <option value="horror">Horror</option>
+                            <option value="family">Family</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="genreFilter">Genre</label>
+                        <select id="genreFilter" class="filter-select">
+                            <option value="">All Genres</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="yearFilter">Year</label>
+                        <select id="yearFilter" class="filter-select">
+                            <option value="">All Years</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn-filter" id="applyFilters">
+                        <i class="fas fa-filter"></i>
+                        Apply Filters
+                    </button>
+                </div>
+                
+                <div class="featured-grid" id="featuredGrid">
+                    <!-- Featured movies will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Movies Section -->
+        <section id="movies" class="section movies-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Browse Movies</h2>
+                    <div class="view-controls">
+                        <button class="view-btn active" data-view="grid">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" data-view="list">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="search-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="movieSearch" placeholder="Search movies by title, director...">
+                    </div>
+                    
+                    <div class="sort-controls">
+                        <label for="sortBy">Sort by</label>
+                        <select id="sortBy" class="sort-select">
+                            <option value="title">Title</option>
+                            <option value="year">Release Year</option>
+                            <option value="rating">Rating</option>
+                            <option value="popularity">Popularity</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="movies-container">
+                    <div class="movies-grid" id="moviesGrid">
+                        <!-- Movies will be loaded here -->
+                    </div>
+                    
+                    <div class="pagination">
+                        <button class="pagination-btn" id="prevPage">
+                            <i class="fas fa-chevron-left"></i>
+                            Previous
+                        </button>
+                        <div class="page-numbers" id="pageNumbers">
+                            <!-- Page numbers will be generated here -->
+                        </div>
+                        <button class="pagination-btn" id="nextPage">
+                            Next
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Actors Section -->
+        <section id="actors" class="section actors-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Popular Actors</h2>
+                    <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="search-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="actorSearch" placeholder="Search actors...">
+                    </div>
+                </div>
+                
+                <div class="actors-grid" id="actorsGrid">
+                    <!-- Actors will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Genres Section -->
+        <section id="genres" class="section genres-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Browse by Genre</h2>
+                </div>
+                
+                <div class="genres-grid" id="genresGrid">
+                    <!-- Genres will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Personalized Recommendations -->
+        <section class="section personalized-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Personalized For You</h2>
+                    <p class="section-subtitle">Based on your watch history and preferences</p>
+                </div>
+                
+                <div class="personalized-controls">
+                    <div class="control-group">
+                        <label for="recommendationType">Recommendation Type</label>
+                        <select id="recommendationType" class="control-select">
+                            <option value="similar">Similar to Movies You Like</option>
+                            <option value="mood">Based on Your Mood</option>
+                            <option value="popular">Popular in Your Network</option>
+                            <option value="critics">Critics' Choice</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="movieSelect">Select a Movie</label>
+                        <select id="movieSelect" class="control-select">
+                            <option value="">Choose a movie...</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn-primary" id="getRecommendations">
+                        <i class="fas fa-magic"></i>
+                        Get Recommendations
+                    </button>
+                </div>
+                
+                <div class="recommendations-grid" id="recommendationsGrid">
+                    <!-- Personalized recommendations will be loaded here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Movie Detail Modal -->
+    <div id="movieModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body" id="modalContent">
+                <!-- Movie details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-film"></i>
+                        <span>MovieDB</span>
+                    </div>
+                    <p class="footer-description">
+                        The ultimate destination for movie enthusiasts. Discover, explore, and enjoy cinema like never before.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Explore</h3>
+                    <ul class="footer-links">
+                        <li><a href="#movies">Movies</a></li>
+                        <li><a href="#actors">Actors</a></li>
+                        <li><a href="#genres">Genres</a></li>
+                        <li><a href="#featured">Featured</a></li>
+                        <li><a href="#">Top Rated</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Account</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Sign In</a></li>
+                        <li><a href="#">Create Account</a></li>
+                        <li><a href="#">Watchlist</a></li>
+                        <li><a href="#">Ratings</a></li>
+                        <li><a href="#">Preferences</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Help Center</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 MovieDB. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="js/app.js"></script>
+    <script src="js/movies.js"></script>
+    <script src="js/actors.js"></script>
+    <script src="js/genres.js"></script>
+    <script src="js/recommendations.js"></script>
+    <script src="js/featured.js"></script>
+</body>
+</html>
