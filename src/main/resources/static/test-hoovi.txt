@@ -1,1 +1,0 @@
-Hoovi frontend replacement in progress.
