@@ -3,6 +3,8 @@ package com.example.moviesapi.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -22,12 +24,33 @@ public class MovieRequest {
     @NotNull(message = "Duration is required")
     @Min(value = 1, message = "Duration must be at least 1 minute")
     @Max(value = 500, message = "Duration must not exceed 500 minutes")
-    private Integer duration; // in minutes
+    private Integer duration;
+
+    @Size(max = 160)
+    private String director;
+
+    @Size(max = 80)
+    private String language;
+
+    @Size(max = 80)
+    private String country;
+
+    @DecimalMin("0.0")
+    @DecimalMax("10.0")
+    private Double imdbRating;
+
+    @Size(max = 40)
+    private String mpaaRating;
+
+    @Size(max = 500)
+    private String posterUrl;
+
+    @Size(max = 1200)
+    private String overview;
 
     private List<Long> genreIds = new ArrayList<>();
     private List<Long> actorIds = new ArrayList<>();
 
-    // Constructors
     public MovieRequest() {}
 
     public MovieRequest(String title, Integer releaseYear, Integer duration) {
@@ -44,55 +67,44 @@ public class MovieRequest {
         this.actorIds = actorIds != null ? actorIds : new ArrayList<>();
     }
 
-    // Getters and Setters
-    public String getTitle() {
-        return title;
-    }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public Integer getReleaseYear() { return releaseYear; }
+    public void setReleaseYear(Integer releaseYear) { this.releaseYear = releaseYear; }
 
-    public Integer getReleaseYear() {
-        return releaseYear;
-    }
+    public Integer getDuration() { return duration; }
+    public void setDuration(Integer duration) { this.duration = duration; }
 
-    public void setReleaseYear(Integer releaseYear) {
-        this.releaseYear = releaseYear;
-    }
+    public String getDirector() { return director; }
+    public void setDirector(String director) { this.director = director; }
 
-    public Integer getDuration() {
-        return duration;
-    }
+    public String getLanguage() { return language; }
+    public void setLanguage(String language) { this.language = language; }
 
-    public void setDuration(Integer duration) {
-        this.duration = duration;
-    }
+    public String getCountry() { return country; }
+    public void setCountry(String country) { this.country = country; }
 
-    public List<Long> getGenreIds() {
-        return genreIds;
-    }
+    public Double getImdbRating() { return imdbRating; }
+    public void setImdbRating(Double imdbRating) { this.imdbRating = imdbRating; }
 
-    public void setGenreIds(List<Long> genreIds) {
-        this.genreIds = genreIds != null ? genreIds : new ArrayList<>();
-    }
+    public String getMpaaRating() { return mpaaRating; }
+    public void setMpaaRating(String mpaaRating) { this.mpaaRating = mpaaRating; }
 
-    public List<Long> getActorIds() {
-        return actorIds;
-    }
+    public String getPosterUrl() { return posterUrl; }
+    public void setPosterUrl(String posterUrl) { this.posterUrl = posterUrl; }
 
-    public void setActorIds(List<Long> actorIds) {
-        this.actorIds = actorIds != null ? actorIds : new ArrayList<>();
-    }
+    public String getOverview() { return overview; }
+    public void setOverview(String overview) { this.overview = overview; }
 
-    // Validation methods
-    public boolean hasGenreIds() {
-        return genreIds != null && !genreIds.isEmpty();
-    }
+    public List<Long> getGenreIds() { return genreIds; }
+    public void setGenreIds(List<Long> genreIds) { this.genreIds = genreIds != null ? genreIds : new ArrayList<>(); }
 
-    public boolean hasActorIds() {
-        return actorIds != null && !actorIds.isEmpty();
-    }
+    public List<Long> getActorIds() { return actorIds; }
+    public void setActorIds(List<Long> actorIds) { this.actorIds = actorIds != null ? actorIds : new ArrayList<>(); }
+
+    public boolean hasGenreIds() { return genreIds != null && !genreIds.isEmpty(); }
+    public boolean hasActorIds() { return actorIds != null && !actorIds.isEmpty(); }
 
     @Override
     public String toString() {
@@ -100,6 +112,8 @@ public class MovieRequest {
                 "title='" + title + '\'' +
                 ", releaseYear=" + releaseYear +
                 ", duration=" + duration +
+                ", director='" + director + '\'' +
+                ", imdbRating=" + imdbRating +
                 ", genreIds=" + genreIds +
                 ", actorIds=" + actorIds +
                 '}';
