@@ -1,16 +1,23 @@
 # MovieDB
 
-MovieDB is a polished Spring Boot + SQLite movie database platform. It includes a REST API, built-in browser dashboard, Swagger documentation, seeded movie data, search, filtering, pagination, actor and genre relationships, and database summary endpoints.
+MovieDB is a Spring Boot + SQLite movie database platform with a Netlify-safe static dashboard. It includes a REST API, browser UI, Swagger documentation, seeded movie data, search, filtering, pagination, actor and genre relationships, rich movie metadata, and database summary endpoints.
 
-This project is no longer just a class-style CRUD API. It is a small local-first movie database system that can be used for learning, demos, portfolio work, API testing, or as a backend foundation for a larger movie catalogue product.
+The project now works in two modes:
+
+1. **Live backend mode** — run the Spring Boot app and use the real SQLite database/API.
+2. **Netlify/static mode** — deploy the dashboard to Netlify and show demo movie records even when the Java backend is not running.
+
+Netlify cannot run the Java Spring Boot backend or SQLite database. It only serves the frontend. For the full live database, deploy the backend separately on a Java-friendly host such as Render, Railway, Fly.io, a VPS, or any server that can run Maven/Java.
 
 ## What is included
 
-- Built-in dashboard UI at `/`
+- Netlify-ready dashboard UI
+- Static demo fallback data for frontend previews
 - REST API under `/api`
 - Swagger/OpenAPI documentation at `/swagger-ui.html`
 - SQLite database storage
-- Seeded demo data for movies, actors, and genres
+- Seeded database with classics, modern films, international films, and African cinema examples
+- Rich movie fields: director, language, country, IMDb rating, MPAA rating, poster URL, and overview
 - Movie CRUD operations
 - Actor CRUD operations
 - Genre CRUD operations
@@ -21,7 +28,7 @@ This project is no longer just a class-style CRUD API. It is a small local-first
 - Statistics endpoints
 - Database summary endpoint
 - Environment-based configuration
-- Demo/public API key documentation for local integrations
+- Indexes for faster title, year, director, country, rating, actor, genre, and relationship lookups
 
 ## Tech stack
 
@@ -34,7 +41,8 @@ This project is no longer just a class-style CRUD API. It is a small local-first
 | ORM | Spring Data JPA + Hibernate |
 | Validation | Jakarta Bean Validation |
 | Docs | Springdoc OpenAPI / Swagger UI |
-| Frontend | Static HTML, CSS, JavaScript served by Spring Boot |
+| Frontend | Static HTML, CSS, JavaScript |
+| Static deployment | Netlify |
 | Build | Maven |
 
 ## Project structure
@@ -42,6 +50,7 @@ This project is no longer just a class-style CRUD API. It is a small local-first
 ```text
 MovieDB/
 ├── pom.xml
+├── netlify.toml
 ├── env.example
 ├── README.md
 └── src/main/
@@ -63,30 +72,45 @@ MovieDB/
     └── resources/
         ├── application.properties
         ├── data.sql
+        ├── data-enrichment.sql
         └── static/index.html
 ```
 
-## Quick start
-
-### 1. Clone
+## Quick start: live backend mode
 
 ```bash
 git clone https://github.com/imranshiundu/MovieDB.git
 cd MovieDB
-```
-
-### 2. Run
-
-```bash
 mvn clean spring-boot:run
 ```
 
-### 3. Open the app
+Open:
 
 - Dashboard: `http://localhost:8081/`
 - Swagger UI: `http://localhost:8081/swagger-ui.html`
 - API status: `http://localhost:8081/api/status`
 - Database summary: `http://localhost:8081/api/database/summary`
+
+## Netlify deployment
+
+This repo includes `netlify.toml`:
+
+```toml
+[build]
+  publish = "src/main/resources/static"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+```
+
+On Netlify:
+
+- Build command: leave empty
+- Publish directory: `src/main/resources/static`
+
+The Netlify version will show demo records because Netlify cannot run the Spring Boot API. To connect Netlify to a real backend later, deploy the Java app elsewhere and update the dashboard fetch base URL to that deployed API.
 
 ## Environment variables
 
@@ -171,47 +195,45 @@ Important: the included demo keys are not production secrets. They are public pl
 | GET | `/api/genres/{id}/movies` | Movies for genre |
 | POST | `/api/genres/bulk` | Bulk-create genres |
 
-## Example requests
-
-### Create a movie with relationships
+## Example movie payload
 
 ```http
 POST /api/movies/with-dto
 Content-Type: application/json
 
 {
-  "title": "Inception",
-  "releaseYear": 2010,
-  "duration": 148,
-  "genreIds": [1, 4],
-  "actorIds": [3]
+  "title": "Nairobi Half Life",
+  "releaseYear": 2012,
+  "duration": 96,
+  "director": "David Tosh Gitonga",
+  "language": "Swahili, English",
+  "country": "Kenya",
+  "imdbRating": 7.3,
+  "mpaaRating": "NR",
+  "overview": "A young actor from rural Kenya is pulled into Nairobi’s criminal underworld while chasing his dream.",
+  "genreIds": [2, 10],
+  "actorIds": [37]
 }
 ```
 
-### Advanced search
+## Database improvements
 
-```http
-GET /api/movies/advanced-search?title=the&minYear=2000&maxYear=2024&minDuration=90&maxDuration=180&page=0&size=10
-```
+The database now has two seed layers:
 
-### Database summary
+- `data.sql` — original movies, actors, genres, and relationships
+- `data-enrichment.sql` — richer metadata, extra films, extra actors, extra genres, and performance indexes
 
-```http
-GET /api/database/summary
-```
+Added enrichment includes:
 
-Example response:
-
-```json
-{
-  "database": "SQLite",
-  "movies": 56,
-  "actors": 30,
-  "genres": 18,
-  "dashboard": "/",
-  "swagger": "/swagger-ui.html"
-}
-```
+- Director names
+- Languages
+- Countries
+- IMDb ratings
+- MPAA/age ratings
+- Plot overviews
+- International cinema examples
+- African cinema examples
+- Search/index improvements
 
 ## Dashboard UI
 
@@ -221,28 +243,15 @@ The dashboard is served from `src/main/resources/static/index.html` and loads li
 - `/api/genres`
 - `/api/actors`
 
+When these endpoints are unavailable, such as on Netlify, it switches to demo mode automatically.
+
 It provides:
 
 - movie count, actor count, and genre count
-- title search
+- search by title, director, country, language, or overview
 - year filter
-- sorting by newest, oldest, A-Z, and duration
-- direct JSON links for each movie
-
-## Data model
-
-MovieDB uses three main entities:
-
-- `Movie`: title, release year, duration
-- `Actor`: name, birth date
-- `Genre`: name
-
-Relationships:
-
-- Movie to Actor: many-to-many
-- Movie to Genre: many-to-many
-
-The seeded database includes classics, modern blockbusters, actors, genres, and relationship mappings.
+- sorting by top rated, newest, oldest, A-Z, and duration
+- rich movie cards with rating, director, country, and overview
 
 ## Development notes
 
