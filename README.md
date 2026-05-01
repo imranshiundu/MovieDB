@@ -1,299 +1,271 @@
-# Movies API - Complete REST API for Movie Database Management
+# MovieDB
 
-## Project Overview
+MovieDB is a polished Spring Boot + SQLite movie database platform. It includes a REST API, built-in browser dashboard, Swagger documentation, seeded movie data, search, filtering, pagination, actor and genre relationships, and database summary endpoints.
 
-A robust Spring Boot REST API for managing a movie database with full CRUD operations, advanced filtering, caching, metrics monitoring, and comprehensive relationship management between movies, genres, and actors. Built with modern Java technologies and following RESTful principles.
+This project is no longer just a class-style CRUD API. It is a small local-first movie database system that can be used for learning, demos, portfolio work, API testing, or as a backend foundation for a larger movie catalogue product.
 
-## Project Structure
+## What is included
 
+- Built-in dashboard UI at `/`
+- REST API under `/api`
+- Swagger/OpenAPI documentation at `/swagger-ui.html`
+- SQLite database storage
+- Seeded demo data for movies, actors, and genres
+- Movie CRUD operations
+- Actor CRUD operations
+- Genre CRUD operations
+- Search by movie title, actor name, and genre name
+- Pagination support
+- Filtering by year, actor, genre, and duration
+- Many-to-many relationships between movies, actors, and genres
+- Statistics endpoints
+- Database summary endpoint
+- Environment-based configuration
+- Demo/public API key documentation for local integrations
+
+## Tech stack
+
+| Layer | Technology |
+|---|---|
+| Language | Java 17 |
+| Framework | Spring Boot 3.2.0 |
+| API | Spring Web REST controllers |
+| Database | SQLite |
+| ORM | Spring Data JPA + Hibernate |
+| Validation | Jakarta Bean Validation |
+| Docs | Springdoc OpenAPI / Swagger UI |
+| Frontend | Static HTML, CSS, JavaScript served by Spring Boot |
+| Build | Maven |
+
+## Project structure
+
+```text
+MovieDB/
+├── pom.xml
+├── env.example
+├── README.md
+└── src/main/
+    ├── java/com/example/moviesapi/
+    │   ├── MoviesApiApplication.java
+    │   ├── config/
+    │   │   └── OpenApiConfig.java
+    │   ├── controller/
+    │   │   ├── HomeController.java
+    │   │   ├── DatabaseController.java
+    │   │   ├── MovieController.java
+    │   │   ├── ActorController.java
+    │   │   └── GenreController.java
+    │   ├── dto/
+    │   ├── exception/
+    │   ├── model/
+    │   ├── repository/
+    │   └── service/
+    └── resources/
+        ├── application.properties
+        ├── data.sql
+        └── static/index.html
 ```
-movies-api/
-│
-├── src/main/
-│   ├── java/com/example/moviesapi/
-│   │   ├── MoviesApiApplication.java              # Main Spring Boot application
-│   │   ├── model/
-│   │   │   ├── Genre.java                         # Genre entity (id, name)
-│   │   │   ├── Actor.java                         # Actor entity (id, name, birthDate)
-│   │   │   └── Movie.java                         # Movie entity (id, title, releaseYear, duration)
-│   │   ├── repository/
-│   │   │   ├── GenreRepository.java
-│   │   │   ├── ActorRepository.java
-│   │   │   └── MovieRepository.java
-│   │   ├── service/
-│   │   │   ├── GenreService.java
-│   │   │   ├── ActorService.java
-│   │   │   └── MovieService.java
-│   │   ├── controller/
-│   │   │   ├── GenreController.java
-│   │   │   ├── ActorController.java
-│   │   │   └── MovieController.java
-│   │   ├── exception/
-│   │   │   ├── ResourceNotFoundException.java
-│   │   │   └── GlobalExceptionHandler.java
-│   │   ├── dto/
-│   │   │   ├── MovieRequest.java
-│   │   │   ├── ActorRequest.java
-│   │   │   ├── GenreRequest.java
-│   │   │   ├── MovieResponse.java
-│   │   │   ├── ActorResponse.java
-│   │   │   └── GenreResponse.java
-│   │   ├── config/
-│   │   │   ├── DatabaseConfig.java
-│   │   │   └── SwaggerConfig.java
-│   │   └── postman/
-│   │       └── MoviesAPI.postman_collection.json  # Postman collection for API testing
-│   │
-│   ├── resources/
-│   │   ├── application.properties                 # Application configuration
-│   │   └── data.sql                               # Sample data
-│
-├── movies.db                                      # SQLite database file (auto-created)
-├── pom.xml                                        # Maven dependencies
-├── README.md                                      # Documentation and usage guide
-├── structure.txt                                  # Project structure reference
-```
 
-## Technologies Used
+## Quick start
 
-| Technology            | Version      | Purpose                    |
-|-----------------------|-------------|----------------------------|
-| Java                  | 17+         | Programming language       |
-| Spring Boot           | 3.2.0       | Backend application        |
-| Spring Data JPA       | 3.2.0       | Database ORM               |
-| SQLite                | 3.41+       | Relational database        |
-| sqlite-jdbc           | 3.41.2.1    | JDBC driver for SQLite     |
-| Hibernate             | 6.3.1       | ORM provider               |
-| Maven                 | 3.8+        | Build and dependency mgmt  |
-| Jakarta Validation    | 3.0+        | Bean Validation            |
-| Spring Web            | 6.1.1       | REST API endpoints         |
-| Swagger UI/OpenAPI    | 1.7+        | API documentation          |
-| Postman               | -           | API testing                |
+### 1. Clone
 
-## Quick Start Guide
-
-### Prerequisites
-
-- Java 17 or higher
-- Maven 3.8 or higher
-- SQLite (included via JDBC, no installation needed; DB file auto-creates)
-- Git (optional for source cloning)
-- Internet for dependencies (first run)
-
-### Installation & Running
-
-#### 1. Clone and Enter Project Folder
 ```bash
-git clone https://github.com/imranshiundu/123.git
-cd "123"
+git clone https://github.com/imranshiundu/MovieDB.git
+cd MovieDB
 ```
 
-#### 2. Build and Start
+### 2. Run
+
 ```bash
 mvn clean spring-boot:run
 ```
 
-#### 3. Verify Startup
-Check the terminal output:
+### 3. Open the app
+
+- Dashboard: `http://localhost:8081/`
+- Swagger UI: `http://localhost:8081/swagger-ui.html`
+- API status: `http://localhost:8081/api/status`
+- Database summary: `http://localhost:8081/api/database/summary`
+
+## Environment variables
+
+Copy the example file when you need local overrides:
+
+```bash
+cp env.example .env
 ```
-Started MoviesApiApplication ...
-Tomcat started on port 8081 ...
-Database connected: jdbc:sqlite:movies.db
-Swagger UI available at /swagger-ui/index.html
-```
 
-#### 4. API Documentation
-- Access interactive API docs at  
-  [http://localhost:8081/swagger-ui/index.html](http://localhost:8081/swagger-ui/index.html)
+Main settings:
 
-#### 5. Base API URL
-The main API base path: `http://localhost:8081/api/`
+| Variable | Default | Purpose |
+|---|---:|---|
+| `PORT` | `8081` | Server port |
+| `MOVIEDB_DATABASE_URL` | `jdbc:sqlite:movies.db` | SQLite database file |
+| `MOVIEDB_DDL_AUTO` | `create` | Schema strategy for local demos |
+| `MOVIEDB_SQL_INIT` | `always` | Loads demo data on startup |
+| `MOVIEDB_SHOW_SQL` | `false` | SQL console logging |
+| `MOVIEDB_ALLOWED_ORIGINS` | `*` | CORS setting |
+| `MOVIEDB_PUBLIC_API_KEYS` | `moviedb-demo-key,moviedb-readonly-key` | Demo key list for integrations/documentation |
+| `OMDB_API_KEY` | `demo` | Optional external movie provider key |
+| `TMDB_API_KEY` | empty | Optional external movie provider key |
 
----
+Important: the included demo keys are not production secrets. They are public placeholders for local testing and documentation. For real deployment, use private environment variables and never commit real API keys.
 
-## Configuring SQLite
+## Core endpoints
 
-- SQLite JDBC (sqlite-jdbc 3.41.2.1) is used.
-- DB file: `movies.db` auto-created in project root.
-- Main settings in `src/main/resources/application.properties`:
-  ```
-  spring.datasource.url=jdbc:sqlite:movies.db
-  spring.datasource.driver-class-name=org.sqlite.JDBC
-  spring.jpa.database-platform=com.zaxxer.hikari.HikariDataSource
-  spring.jpa.hibernate.ddl-auto=update
-  spring.jpa.show-sql=true
-  ```
+### System
 
----
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/` | Dashboard UI |
+| GET | `/dashboard` | Dashboard UI |
+| GET | `/api/status` | API health/status metadata |
+| GET | `/api/database/summary` | Record counts and database summary |
+| GET | `/swagger-ui.html` | Interactive API documentation |
 
-## Usage Examples
+### Movies
 
-### Create a Movie
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/movies` | List all movies |
+| GET | `/api/movies/paged?page=0&size=10` | Paginated movies |
+| GET | `/api/movies/{id}` | Get one movie |
+| POST | `/api/movies` | Create movie |
+| POST | `/api/movies/with-dto` | Create movie with DTO body |
+| PATCH | `/api/movies/{id}` | Partially update movie |
+| DELETE | `/api/movies/{id}?force=true` | Delete movie |
+| GET | `/api/movies/search?title=matrix` | Search by title |
+| GET | `/api/movies/by-year/{year}` | Filter by year |
+| GET | `/api/movies/by-genre/{genreId}` | Filter by genre |
+| GET | `/api/movies/by-actor/{actorId}` | Filter by actor |
+| GET | `/api/movies/advanced-search` | Search by title, year range, and duration range |
+| GET | `/api/movies/{id}/actors` | Actors attached to movie |
+| GET | `/api/movies/{id}/genres` | Genres attached to movie |
+| PATCH | `/api/movies/{id}/relationships` | Replace movie relationships |
+
+### Actors
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/actors` | List actors |
+| GET | `/api/actors/paged?page=0&size=10` | Paginated actors |
+| GET | `/api/actors/{id}` | Get one actor |
+| POST | `/api/actors` | Create actor |
+| PATCH | `/api/actors/{id}` | Update actor |
+| DELETE | `/api/actors/{id}?force=true` | Delete actor |
+| GET | `/api/actors/search?name=tom` | Search actors |
+| GET | `/api/actors/{id}/movies` | Movies for actor |
+
+### Genres
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/genres` | List genres |
+| GET | `/api/genres/paged?page=0&size=10` | Paginated genres |
+| GET | `/api/genres/{id}` | Get one genre |
+| POST | `/api/genres` | Create genre |
+| PATCH | `/api/genres/{id}` | Update genre |
+| DELETE | `/api/genres/{id}?force=true` | Delete genre |
+| GET | `/api/genres/search?name=action` | Search genres |
+| GET | `/api/genres/{id}/movies` | Movies for genre |
+| POST | `/api/genres/bulk` | Bulk-create genres |
+
+## Example requests
+
+### Create a movie with relationships
 
 ```http
-POST /api/movies
+POST /api/movies/with-dto
 Content-Type: application/json
 
 {
   "title": "Inception",
   "releaseYear": 2010,
   "duration": 148,
-  "genreIds": [1,3],
-  "actorIds": [2,8,15]
+  "genreIds": [1, 4],
+  "actorIds": [3]
 }
 ```
 
-### Search Movies by Title
+### Advanced search
 
 ```http
-GET /api/movies/search?title=matrix
+GET /api/movies/advanced-search?title=the&minYear=2000&maxYear=2024&minDuration=90&maxDuration=180&page=0&size=10
 ```
 
-### Get All Movies with Pagination
+### Database summary
 
 ```http
-GET /api/movies?page=0&size=10
+GET /api/database/summary
 ```
 
-### Get Movies by Genre or Year
+Example response:
 
-```http
-GET /api/movies?genre=1
-GET /api/movies?year=2010
-```
-
-### Get Movie's Actors
-
-```http
-GET /api/movies/1/actors
-```
-
-### Update a Movie
-
-```http
-PATCH /api/movies/1
-Content-Type: application/json
-
+```json
 {
-  "title": "Inception Extended",
-  "duration": 160
+  "database": "SQLite",
+  "movies": 56,
+  "actors": 30,
+  "genres": 18,
+  "dashboard": "/",
+  "swagger": "/swagger-ui.html"
 }
 ```
 
-### Delete a Genre (force delete supported)
+## Dashboard UI
 
-```http
-DELETE /api/genres/1?force=true
+The dashboard is served from `src/main/resources/static/index.html` and loads live data from:
+
+- `/api/movies/paged?size=100`
+- `/api/genres`
+- `/api/actors`
+
+It provides:
+
+- movie count, actor count, and genre count
+- title search
+- year filter
+- sorting by newest, oldest, A-Z, and duration
+- direct JSON links for each movie
+
+## Data model
+
+MovieDB uses three main entities:
+
+- `Movie`: title, release year, duration
+- `Actor`: name, birth date
+- `Genre`: name
+
+Relationships:
+
+- Movie to Actor: many-to-many
+- Movie to Genre: many-to-many
+
+The seeded database includes classics, modern blockbusters, actors, genres, and relationship mappings.
+
+## Development notes
+
+For local demo work, the default schema strategy is `create`, so the database is rebuilt and reseeded on startup. For persistent local data, run with:
+
+```bash
+MOVIEDB_DDL_AUTO=update MOVIEDB_SQL_INIT=never mvn spring-boot:run
 ```
 
----
+For production, move from SQLite to PostgreSQL or MySQL, disable public CORS, use real authentication, and keep API keys in environment variables.
 
-## API Documentation & Testing
+## Upgrade ideas still available
 
-- **Swagger UI:** All available endpoints with model schemas and live request/response testing  
-  [http://localhost:8081/swagger-ui/index.html](http://localhost:8081/swagger-ui/index.html)
+- Add real API-key middleware for protected write endpoints
+- Add PostgreSQL profile for deployment
+- Add Dockerfile and docker-compose
+- Add tests for controllers and services
+- Add import endpoint from OMDb/TMDb
+- Add posters, ratings, reviews, watchlists, and user accounts
+- Add CI with Maven test/build checks
 
-- **Postman Collection:**  
-  Import `src/main/java/com/example/moviesapi/postman/MoviesAPI.postman_collection.json`  
-  Set baseUrl to `http://localhost:8081/api/`  
-  Example requests:
-    - Create movie
-    - List actors/movies/genres
-    - Search/filter/pagination
-    - Error cases & validation
+## Maintainer
 
----
+Built and maintained by Imran Shiundu.
 
-## Database Design & Relationships
-
-- **Movies, Genres, Actors**:  
-  - All entities have immutable auto-generated `id`.
-  - Many-to-many relationships:
-    - Movie <-> Genre
-    - Movie <-> Actor
-  - The link tables are managed by JPA/Hibernate in SQLite.
-
----
-
-## Testing Guide
-
-Testing validates all core and advanced features.
-- Use **Swagger UI** for live endpoint tests.
-- Use **Postman collection** for automated/iterative testing.
-
-**General Steps:**
-1. Download, build, and run the code.
-2. Test each endpoint for CRUD, search, filter, pagination, deletion.
-3. Validate error handling (404, 400, etc) and input validation (invalid data).
-4. Verify relationships and sample data (at least 5 genres, 20 movies, 15 actors).
-5. Use force delete to test relationship handling.
-
-_For team testing guidelines:_
-- Divide tests among reviewers
-- Provide feedback and request fixes as needed
-- Clearly state mandatory vs. optional fixes
-- Repeat testing after changes
-
----
-
-## Core Requirements Checklist (with File Locations)
-
-| Requirement | File(s) / Folder(s) | Notes |
-|-------------|----------------------|-------|
-| RESTful URL design | controller/ | All endpoints use /api/ prefix |
-| Four HTTP methods | controller/ | GET, POST, PATCH, DELETE |
-| CRUD operations | service/, controller/ | For Movie, Actor, Genre |
-| Dependency injection | service/, controller/ | Via constructor/autowired |
-| Sample data | resources/data.sql | At least 5 genres, 20 movies, 15 actors |
-| Relationship scenarios | model/, data.sql | Many-to-many logic |
-| JpaRepository | repository/ | findAll, findById, custom queries |
-| @SpringBootApplication | MoviesApiApplication.java | Main entry point |
-| @Entity annotation | model/ | All entities annotated |
-| Genre fields | Genre.java | id, name |
-| Movie fields | Movie.java | id, title, releaseYear, duration |
-| Actor fields | Actor.java | id, name, birthDate (YYYY-MM-DD) |
-| ManyToMany, JoinTable | model/ | Used between entities |
-| Eager vs Lazy loading | model/ | Documented in entity comments |
-| Filtering, search | repository/, controller/ | Query params supported |
-| Pagination | repository/, controller/ | Pageable supported |
-| Validation | dto/, exception/ | @Valid, bean validation, error handler |
-| Error handling | exception/ | Custom exceptions, global handler |
-| SQLite config | application.properties, pom.xml | Correct JDBC driver set |
-| DTOs | dto/ | Clear request/response schemas |
-| Status codes | exception/, controller/ | 200, 201, 204, 400, 404, etc. |
-| Postman collection | postman/ | For reproducible API tests |
-| Documentation | README.md, Swagger UI | Setup & usage guide |
-| Clean, commented code | model/, service/, controller/ | JavaDocs, inline comments |
-
----
-
-## FAQ
-
-**Where is the main API endpoint?**  
-- All endpoints start with: `http://localhost:8081/api/`
-
-**Where are entities and their relationships defined?**  
-- See `src/main/java/com/example/moviesapi/model/`
-
-**Error handling structure?**  
-- See `src/main/java/com/example/moviesapi/exception/GlobalExceptionHandler.java`
-
-**API exploration?**  
-- Open [http://localhost:8081/swagger-ui/index.html](http://localhost:8081/swagger-ui/index.html)
-
-**Database config?**  
-- See `src/main/resources/application.properties`  
-- SQLite JDBC version: 3.41.2.1
-
-**Test API endpoints with sample data?**  
-- Use the Postman collection at `src/main/java/com/example/moviesapi/postman/MoviesAPI.postman_collection.json`  
-- Or, test directly in Swagger UI.
-
----
-
-## Contact
-
-For bugs, requests, or questions, create an issue or contact the repo maintainer.
-
----
-**Enjoy using Movies API for learning, testing, or building real-world movie applications with Java, Spring Boot, and SQLite!**
+Portfolio: `https://imranisdev.top`
