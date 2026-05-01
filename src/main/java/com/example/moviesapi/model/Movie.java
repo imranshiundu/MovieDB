@@ -13,6 +13,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -41,7 +43,36 @@ public class Movie {
     @Min(value = 1, message = "Duration must be at least 1 minute")
     @Max(value = 500, message = "Duration must not exceed 500 minutes")
     @Column(name = "duration", nullable = false)
-    private Integer duration; // in minutes
+    private Integer duration;
+
+    @Size(max = 160, message = "Director name must not exceed 160 characters")
+    @Column(name = "director", length = 160)
+    private String director;
+
+    @Size(max = 80, message = "Language must not exceed 80 characters")
+    @Column(name = "language", length = 80)
+    private String language;
+
+    @Size(max = 80, message = "Country must not exceed 80 characters")
+    @Column(name = "country", length = 80)
+    private String country;
+
+    @DecimalMin(value = "0.0", message = "IMDb rating must be 0 or higher")
+    @DecimalMax(value = "10.0", message = "IMDb rating must be 10 or lower")
+    @Column(name = "imdb_rating")
+    private Double imdbRating;
+
+    @Size(max = 40, message = "MPAA rating must not exceed 40 characters")
+    @Column(name = "mpaa_rating", length = 40)
+    private String mpaaRating;
+
+    @Size(max = 500, message = "Poster URL must not exceed 500 characters")
+    @Column(name = "poster_url", length = 500)
+    private String posterUrl;
+
+    @Size(max = 1200, message = "Overview must not exceed 1200 characters")
+    @Column(name = "overview", length = 1200)
+    private String overview;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -59,7 +90,6 @@ public class Movie {
     )
     private Set<Actor> actors = new HashSet<>();
 
-    // Constructors
     public Movie() {}
 
     public Movie(String title, Integer releaseYear, Integer duration) {
@@ -75,92 +105,65 @@ public class Movie {
         this.duration = duration;
     }
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-    public String getTitle() {
-        return title;
-    }
+    public Integer getReleaseYear() { return releaseYear; }
+    public void setReleaseYear(Integer releaseYear) { this.releaseYear = releaseYear; }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public Integer getDuration() { return duration; }
+    public void setDuration(Integer duration) { this.duration = duration; }
 
-    public Integer getReleaseYear() {
-        return releaseYear;
-    }
+    public String getDirector() { return director; }
+    public void setDirector(String director) { this.director = director; }
 
-    public void setReleaseYear(Integer releaseYear) {
-        this.releaseYear = releaseYear;
-    }
+    public String getLanguage() { return language; }
+    public void setLanguage(String language) { this.language = language; }
 
-    public Integer getDuration() {
-        return duration;
-    }
+    public String getCountry() { return country; }
+    public void setCountry(String country) { this.country = country; }
 
-    public void setDuration(Integer duration) {
-        this.duration = duration;
-    }
+    public Double getImdbRating() { return imdbRating; }
+    public void setImdbRating(Double imdbRating) { this.imdbRating = imdbRating; }
 
-    public Set<Genre> getGenres() {
-        return genres;
-    }
+    public String getMpaaRating() { return mpaaRating; }
+    public void setMpaaRating(String mpaaRating) { this.mpaaRating = mpaaRating; }
 
-    public void setGenres(Set<Genre> genres) {
-        this.genres = genres;
-    }
+    public String getPosterUrl() { return posterUrl; }
+    public void setPosterUrl(String posterUrl) { this.posterUrl = posterUrl; }
 
-    public Set<Actor> getActors() {
-        return actors;
-    }
+    public String getOverview() { return overview; }
+    public void setOverview(String overview) { this.overview = overview; }
 
-    public void setActors(Set<Actor> actors) {
-        this.actors = actors;
-    }
+    public Set<Genre> getGenres() { return genres; }
+    public void setGenres(Set<Genre> genres) { this.genres = genres; }
 
-    // Helper methods for managing relationships
+    public Set<Actor> getActors() { return actors; }
+    public void setActors(Set<Actor> actors) { this.actors = actors; }
+
     public void addGenre(Genre genre) {
-        if (this.genres == null) {
-            this.genres = new HashSet<>();
-        }
+        if (this.genres == null) this.genres = new HashSet<>();
         this.genres.add(genre);
-        if (genre.getMovies() != null) {
-            genre.getMovies().add(this);
-        }
+        if (genre.getMovies() != null) genre.getMovies().add(this);
     }
 
     public void removeGenre(Genre genre) {
-        if (this.genres != null) {
-            this.genres.remove(genre);
-        }
-        if (genre.getMovies() != null) {
-            genre.getMovies().remove(this);
-        }
+        if (this.genres != null) this.genres.remove(genre);
+        if (genre.getMovies() != null) genre.getMovies().remove(this);
     }
 
     public void addActor(Actor actor) {
-        if (this.actors == null) {
-            this.actors = new HashSet<>();
-        }
+        if (this.actors == null) this.actors = new HashSet<>();
         this.actors.add(actor);
-        if (actor.getMovies() != null) {
-            actor.getMovies().add(this);
-        }
+        if (actor.getMovies() != null) actor.getMovies().add(this);
     }
 
     public void removeActor(Actor actor) {
-        if (this.actors != null) {
-            this.actors.remove(actor);
-        }
-        if (actor.getMovies() != null) {
-            actor.getMovies().remove(this);
-        }
+        if (this.actors != null) this.actors.remove(actor);
+        if (actor.getMovies() != null) actor.getMovies().remove(this);
     }
 
     @Override
@@ -170,6 +173,8 @@ public class Movie {
                 ", title='" + title + '\'' +
                 ", releaseYear=" + releaseYear +
                 ", duration=" + duration +
+                ", director='" + director + '\'' +
+                ", imdbRating=" + imdbRating +
                 '}';
     }
 
